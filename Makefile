@@ -28,10 +28,10 @@ publish: reveal.js default
 	@ssh ${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	@scp ${PROJECT}.html ${REMOTE}/index.html
 	@rsync -rlutopgx images ${REMOTE}/
-	@echo  "\nPublished to $(WEB_REMOTE)\n"
+	@echo  "\nPublished to $(REMOTE_URL)\n"
 
 view-remote: publish
-	@firefox $(WEB_REMOTE)
+	@firefox $(REMOTE_URL)
 
 view: reveal.js default
 	@firefox file://$(BASEDIR)/$(PROJECT).html-preview.html
