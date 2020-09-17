@@ -10,6 +10,8 @@ REVEAL := ${REVEAL_HOST}:~/${REVEAL_DIR}
 vpath %.md markdown
 vpath %.html html
 
+.DEFAULT_GOAL := default
+
 %.html: %.md reveal.js
 	@pandoc -t revealjs --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
 	@pandoc -t revealjs --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
