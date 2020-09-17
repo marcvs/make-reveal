@@ -10,6 +10,11 @@ REMOTE_URL := "http://<host>/${PROJECT}"
 
 # we keep that url separate, because that is 18MB. Be sure that additional
 # themes are placed there, too.
-# Can be created by scping the local reveal.js to remote
-REVEAL_URL := "http://<host>/reveal.js"
+# Can be created by `make remote-reveal` 
+#
+# You can tweak these, but please be careful (watch the command in
+# the remote-reveal target)
+REVEAL_HOST := ${REMOTE_HOST}
+REVEAL_DIR  := "public_html/reveal.js"
+REVEAL_URL := "${REVEAL_HOST}/${REVEAL_DIR}"
 #REVEAL_URL := "http://<host>/<path>/reveal.js"

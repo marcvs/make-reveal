@@ -5,6 +5,7 @@ BASEDIR:=$(shell echo `pwd`)
 include config.mk
 
 REMOTE := ${REMOTE_HOST}:~/${REMOTE_DIR}/${PROJECT}
+REVEAL := ${REVEAL_HOST}:~/${REVEAL_DIR}
 
 vpath %.md markdown
 vpath %.html html
@@ -15,6 +16,11 @@ vpath %.html html
 	@#pandoc -t revealjs --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs --mathjax --self-contained --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs           --self-contained --standalone -f markdown -o $@ $<
+
+remote-reveal: reveal.js
+	@#@ssh ${REVEAL_HOST} 'test -d ${REVEAL_DIR} && rm -rf ${REVEAL_DIR}'
+	@#scp -rp reveal.js ${REVEAL}
+	@rsync -rlutopgxv reveal.js/ ${REVEAL}/
 
 default: ${PROJECT}.html
 	@echo ${PROJECT}

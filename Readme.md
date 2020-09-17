@@ -10,6 +10,8 @@ Depends on pandoc
 - Create a mardkown file in that folder named `<name>.md`
 - Symlink the `Makefile` of this repo into that folder
 - Copy and adjust the `config.mk` of this repo to the folder
+- `make remote-reveal` for installing a global reveal.js folder on your
+    remote server
 
 ## Use:
 - Either run `make view`  or `make view-remote` and be happy
