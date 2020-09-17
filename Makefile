@@ -20,7 +20,7 @@ vpath %.html html
 remote-reveal: reveal.js
 	@#@ssh ${REVEAL_HOST} 'test -d ${REVEAL_DIR} && rm -rf ${REVEAL_DIR}'
 	@#scp -rp reveal.js ${REVEAL}
-	@rsync -rlutopgxv reveal.js/ ${REVEAL}/
+	@rsync -rlutopgx reveal.js/ ${REVEAL}/
 
 default: ${PROJECT}.html
 	@echo ${PROJECT}

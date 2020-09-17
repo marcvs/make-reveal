@@ -5,7 +5,7 @@ REMOTE_HOST := "<user>@<host>"
 REMOTE_DIR := "public_html"
 
 # How can the remove path be reached in a browser?
-REMOTE_URL := "http://<host>/${PROJECT}"
+REMOTE_URL := "http://${REMOTE_HOST}/${PROJECT}"
 #REMOTE_URL := "http://<host>/<path>/${PROJECT}"
 
 # we keep that url separate, because that is 18MB. Be sure that additional
