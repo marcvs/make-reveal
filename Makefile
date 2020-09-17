@@ -32,7 +32,7 @@ reveal.js:
 
 publish: reveal.js default
 	@ssh ${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
-	@scp ${PROJECT}.html ${REMOTE}/index.html
+	@scp ${PROJECT}.html ${REMOTE}/index.html > /dev/null 
 	@rsync -rlutopgx images ${REMOTE}/
 	@echo  "\nPublished to $(REMOTE_URL)\n"
 
