@@ -4,12 +4,20 @@ BASEDIR:=$(shell echo `pwd`)
 
 ############################################
 # Configure these:
-REMOTE_HOST := marcus@hardt-it.de
-REMOTE_DIR := web
+# user to ssh to
+REMOTE_HOST := user@host
+
+# Remote path (relative to remove $HOME)
+REMOTE_DIR := path 
+
+# How can the remove path be reached in a browser?
 WEB_REMOTE := "http://marcus.hardt-it.de/${PROJECT}"
+
 # we keep that url separate, because that is 18MB. Be sure that additional
-# themes are placed there, too
+# themes are placed there, too.
+# Can be created by scping the local reveal.js to remote
 REVEAL_URL := "http://marcus.hardt-it.de/reveal.js"
+
 # Config done
 ############################################
 
