@@ -24,6 +24,14 @@ See config.mk
 The `REVEAL_URL` can be created by scping the reveal.js folder to a web
 location after an inital `make reveal.js`
 
+## VIM Integration:
+Probably not perfect, but I use this:
+```
+    autocmd FileType markdown map <leader>ll :make<cr><cr>:!~/bin/firefox-refresh.sh <cr><cr>
+    autocmd FileType markdown map <leader>lp :make publish<cr>
+    autocmd FileType markdown map <leader>lv :make view<cr><cr>
+```
+
 
 Have fun.
 
