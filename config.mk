@@ -1,5 +1,5 @@
 # user to ssh to
-REMOTE_HOST := "<user>@<host>"
+REMOTE_HOST := "user@host"
 
 # Remote path (relative to remove $HOME)
 REMOTE_DIR := "public_html"
