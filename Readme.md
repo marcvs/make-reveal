@@ -19,7 +19,8 @@ Depends on pandoc
 
 ## Configuration
 
-See config.mk
+Use `config.mk` as a template and copy your version to
+`$HOME/.config/make-reveal/config.mk`
 
 The `REVEAL_URL` can be created by scping the reveal.js folder to a web
 location after an inital `make reveal.js`
