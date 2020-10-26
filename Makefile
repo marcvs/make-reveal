@@ -2,7 +2,8 @@
 PROJECT:=$(shell basename `pwd`)
 BASEDIR:=$(shell echo `pwd`)
 
-include config.mk
+-include config.mk
+-include ${HOME}/.config/make-reveal/config.mk 
 
 REMOTE := ${REMOTE_HOST}:~/${REMOTE_DIR}/${PROJECT}
 REVEAL := ${REVEAL_HOST}:~/${REVEAL_DIR}
@@ -11,6 +12,21 @@ vpath %.md markdown
 vpath %.html html
 
 .DEFAULT_GOAL := default
+
+info:
+	@echo "\nINFO:"
+	@echo "REMOTE_USER: ${REMOTE_USER} "
+	@echo "REMOTE_HOST: ${REMOTE_HOST} "
+	@echo "REMOTE_DIR:  ${REMOTE_DIR}  "
+	@echo "REMOTE_URL:  ${REMOTE_URL}  "
+	@echo "REVEAL_USER: ${REVEAL_USER} "
+	@echo "REVEAL_HOST: ${REVEAL_HOST} "
+	@echo "REVEAL_DIR:  ${REVEAL_DIR}  "
+	@echo "REVEAL_URL:  ${REVEAL_URL}  "
+	@echo ""
+	@echo "REVEAL:      ${REVEAL}      "
+	@echo "REMOTE:      ${REMOTE}      "
+	@echo "PROJECT:     ${PROJECT}     "
 
 %.html: %.md reveal.js
 	@pandoc -t revealjs --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
@@ -33,10 +49,10 @@ reveal.js:
 	@test -d images || mkdir images
 
 publish: reveal.js default
-	@ssh ${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
+	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	@scp ${PROJECT}.html ${REMOTE}/index.html > /dev/null 
-	@rsync -rlutopgx images ${REMOTE}/
-	@echo  "\nPublished to $(REMOTE_URL)\n"
+	@rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
+	@echo  "\nPublished (via ${REMOTE_USER}@${REMOTE}) to $(REMOTE_URL)\n"
 
 view-remote: publish
 	@firefox $(REMOTE_URL)

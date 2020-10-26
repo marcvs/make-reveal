@@ -1,5 +1,6 @@
 # user to ssh to
-REMOTE_HOST := "user@host"
+REMOTE_USER:= "username"
+REMOTE_HOST := "host"
 
 # Remote path (relative to remove $HOME)
 REMOTE_DIR := "public_html"
@@ -16,5 +17,4 @@ REMOTE_URL := "http://${REMOTE_HOST}/${PROJECT}"
 # the remote-reveal target)
 REVEAL_HOST := ${REMOTE_HOST}
 REVEAL_DIR  := "public_html/reveal.js"
-REVEAL_URL := "${REVEAL_HOST}/${REVEAL_DIR}"
-#REVEAL_URL := "http://<host>/<path>/reveal.js"
+REVEAL_URL := "/reveal.js"
