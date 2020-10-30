@@ -7,7 +7,7 @@ Depends on pandoc
 ## Install:
 
 - Create a folder named `<name>`
-- Create a mardkown file in that folder named `<name>.md`
+- Create a markdown file in that folder named `<name>.md`
 - Symlink the `Makefile` of this repo into that folder
 - Copy and adjust the `config.mk` of this repo to the folder
 - `make remote-reveal` for installing a global reveal.js folder on your
@@ -23,7 +23,7 @@ Use `config.mk` as a template and copy your version to
 `$HOME/.config/make-reveal/config.mk`
 
 The `REVEAL_URL` can be created by scping the reveal.js folder to a web
-location after an inital `make reveal.js`
+location after an initial `make reveal.js`
 
 ## VIM Integration:
 Probably not perfect, but I use this:
