@@ -29,8 +29,10 @@ info:
 	@echo "PROJECT:     ${PROJECT}     "
 
 %.html: %.md reveal.js
-	@pandoc -t revealjs --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	@pandoc -t revealjs --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
 	@#pandoc -t revealjs --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs --mathjax --self-contained --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs           --self-contained --standalone -f markdown -o $@ $<
@@ -45,14 +47,19 @@ default: ${PROJECT}.html
 
 reveal.js: 
 	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
-	@curl -s marcus.hardt-it.de/reveal-theme-marcus.css > reveal.js/css/theme/marcus.css
+	#@curl -s marcus.hardt-it.de/reveal-theme-marcus.css > reveal.js/css/theme/marcus.css
+	@curl -s marcus.hardt-it.de/reveal-themes/marcus.css > reveal.js/css/theme/marcus.css
+	@curl -s marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
+	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
+	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
+	@echo  "\nPublishing (via ${REMOTE_USER}@${REMOTE}) to $(REMOTE_URL)\n"
 	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	@scp ${PROJECT}.html ${REMOTE}/index.html > /dev/null 
 	@rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
-	@echo  "\nPublished (via ${REMOTE_USER}@${REMOTE}) to $(REMOTE_URL)\n"
+	@echo "Done"
 
 view-remote: publish
 	@firefox $(REMOTE_URL)
