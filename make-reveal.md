@@ -7,6 +7,12 @@ theme: marcus
 parallaxBackgroundImage: images/kit-bg-slide.png
 title-slide-attributes:
     data-background-image: images/kit-bg-head.png
+<!--REMOTE_USER: defaults to unix username-->
+<!--REMOTE_HOST: cvs.data.kit.edu-->
+<!--REMOTE_URL: http://cvs.data.kit.edu/~marcus/make-reveal-->
+<!--REVEAL_DIR: public_html/reveal.js-->
+<!--REVEAL_URL: /~marcus/reveal.js-->
+
 ---
 
 # First section 
