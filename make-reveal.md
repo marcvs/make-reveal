@@ -2,8 +2,11 @@
 # vim:foldmethod=marker:tw=100:ft=markdown
 author: Donald Duck
 title: Make Reveal.js
-date: 13 July 2305
+date: 13 July 2305<br/><br/><br/><br/><br/><br/>
 theme: marcus
+parallaxBackgroundImage: images/kit-bg-slide.png
+title-slide-attributes:
+    data-background-image: images/kit-bg-head.png
 ---
 
 # First section 
@@ -24,6 +27,11 @@ theme: marcus
     - [`reveal.js`](https://revealjs.com/)
     - [`Make`](https://www.gnu.org/software/make/manual/make.html)
     - [`Markdown`](https://wikipedia.org/wiki/Markdown)
+
+# Using Images 
+# Using Images {data-background-image="images/scc-logo.png" data-background-size="contain"}
+## {data-background-image="images/scc-logo.png" data-background-size="contain"}
+## {data-background-image="images/scc-logo.png"}
 
 ## xxx xxxx xxxxx:
 - xxx xx xxx xxxxxxxx xxxx / xxxxx xxxxxx xx xxxxxx
