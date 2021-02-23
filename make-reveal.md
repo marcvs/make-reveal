@@ -7,6 +7,7 @@ theme: marcus
 parallaxBackgroundImage: images/kit-bg-slide.png
 title-slide-attributes:
     data-background-image: images/kit-bg-head.png
+    <!--data-background-size: 90%-->
 <!--REMOTE_USER: defaults to unix username-->
 <!--REMOTE_HOST: cvs.data.kit.edu-->
 <!--REMOTE_URL: http://cvs.data.kit.edu/~marcus/make-reveal-->
@@ -18,16 +19,19 @@ title-slide-attributes:
 # First section 
 
 ##  First slide
+- <span style="color: red;">text</span>
 - Be sure not to include any items outside the 2nd level sections, otherwise the 2d navigation will
     fail
-    - lorem
+    - asdf <span style="color: red;">lorem</span> ips ips
         - ipsum
 
 - Just for testing
     - xxx xxxxxxxxxxx
     - xxxxxxxxxx (xxx xxxxx xxxxxxxxxx) xxxxxxxxxxx
 
-## 2nd slide
+## 2nd slide {data-transition="zoom"}
+<!--{data-transition-speed="fast">-->
+<!--Choose from three transition speeds: default, fast or slow-->
 - This whole thing is based on
     - [`pandoc`](https://pandoc.org/)
     - [`reveal.js`](https://revealjs.com/)
@@ -37,7 +41,23 @@ title-slide-attributes:
 # Using Images 
 # Using Images {data-background-image="images/scc-logo.png" data-background-size="contain"}
 ## {data-background-image="images/scc-logo.png" data-background-size="contain"}
-## {data-background-image="images/scc-logo.png"}
+## {data-background-image="images/scc-logo.png" data-background-size="cover"}
+<!--data-background-position-->
+<!--https://developer.mozilla.org/en-US/docs/Web/CSS/background-position-->
+<!--data-background-opacity-->
+## {data-background-image="images/scc-logo.png" data-background-size="contain" data-background-opacity="0.2"}
+<!--data-background-video-->
+
+    AARC Blueprint Architectures (BPA)
+    AARC Policy Development Kit (PDK)
+
+Users supported via
+
+    DFN-AAI / eduGAIN
+    Social: ORCID + Github + Google
+    Homeless Users: Can easily be supported
+
+Works in Production tod
 
 ## xxx xxxx xxxxx:
 - xxx xx xxx xxxxxxxx xxxx / xxxxx xxxxxx xx xxxxxx
