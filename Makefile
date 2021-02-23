@@ -2,8 +2,55 @@
 PROJECT:=$(shell basename `pwd`)
 BASEDIR:=$(shell echo `pwd`)
 
+########## config.mk 
+# config.mk is expected to set:
+# REMOTE_USER:= "marcus"
+# REMOTE_HOST := "hardt-it.de"
+# REMOTE_DIR := "public_html"
+# REMOTE_URL := "http://${REMOTE_USER}.${REMOTE_HOST}/${PROJECT}"
+# REVEAL_USER := ${REMOTE_USER}
+# REVEAL_HOST := ${REMOTE_USER}.${REMOTE_HOST}
+# REVEAL_DIR  := "public_html/reveal.js"
+# REVEAL_URL_DIR := "/reveal.js"
+# REVEAL_URL := "${REVEAL_URL_DIR}"
 -include config.mk
--include ${HOME}/.config/make-reveal/config.mk 
+-include ${HOME}/.config/make-reveal/config.mk
+
+
+### Read more config from markdown file header:
+# REMOTE_USER
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_USER: | cut -d:  -f 2 | sed s/\ *//)
+ifneq ($(TEMP),)
+REMOTE_USER:=${TEMP}
+XY:="aaa"
+endif
+
+# REMOTE_HOST
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_HOST: | cut -d:  -f 2 | sed s/\ *//)
+ifneq ($(TEMP),)
+REMOTE_HOST:=${TEMP}
+XY:="aaa"
+endif
+
+# REMOTE_URL
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_URL:  | cut -d:  -f 2 | sed s/\ *//)
+ifneq ($(TEMP),)
+REMOTE_URL :=${TEMP}
+endif
+
+# REVEAL_DIR
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REVEAL_DIR:  | cut -d:  -f 2 | sed s/\ *//)
+ifneq ($(TEMP),)
+REVEAL_DIR :=${TEMP}
+endif
+
+# REVEAL_URL
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REVEAL_URL:  | cut -d:  -f 2 | sed s/\ *//)
+ifneq ($(TEMP),)
+REVEAL_URL :=${TEMP}
+endif
+
+### Derive Variables:
 
 REMOTE := ${REMOTE_HOST}:~/${REMOTE_DIR}/${PROJECT}
 REVEAL := ${REVEAL_HOST}:~/${REVEAL_DIR}
@@ -14,7 +61,6 @@ vpath %.html html
 .DEFAULT_GOAL := default
 
 info:
-	@echo "\nINFO:"
 	@echo "REMOTE_USER: ${REMOTE_USER} "
 	@echo "REMOTE_HOST: ${REMOTE_HOST} "
 	@echo "REMOTE_DIR:  ${REMOTE_DIR}  "
@@ -40,6 +86,7 @@ info:
 remote-reveal: reveal.js
 	@#@ssh ${REVEAL_HOST} 'test -d ${REVEAL_DIR} && rm -rf ${REVEAL_DIR}'
 	@#scp -rp reveal.js ${REVEAL}
+	@echo rsync -rlutopgx reveal.js/ ${REVEAL}/
 	@rsync -rlutopgx reveal.js/ ${REVEAL}/
 
 default: ${PROJECT}.html
