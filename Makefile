@@ -90,7 +90,7 @@ remote-reveal: reveal.js
 	@rsync -rlutopgx reveal.js/ ${REVEAL}/
 
 default: ${PROJECT}.html
-	@echo ${PROJECT}
+	@echo ""
 
 reveal.js: 
 	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
@@ -99,6 +99,7 @@ reveal.js:
 	@curl -s marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
 	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
 	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
+	@curl -s marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
