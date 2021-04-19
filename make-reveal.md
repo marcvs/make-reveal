@@ -67,7 +67,7 @@ Users supported via
     Homeless Users: Can easily be supported
 ## Fading example
 - A list
-<li class="fragment fade-up"> Fade up
+<li class="fragment fade-up" data-fragment-index="1"> Fade up
 <li class="fragment">Fade in
 <li class="fragment fade-out">Fade out
 <li class="fragment highlight-red">Highlight red
