@@ -33,9 +33,10 @@ XY:="aaa"
 endif
 
 # REMOTE_URL
-TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_URL:  | cut -d:  -f 2 | sed s/\ *//)
+PROTO:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_URL: | cut -d:  -f 2  | sed s#\ *##)
+TEMP:=$(shell grep -B 100 '\-\-\-' $(PROJECT).md | grep ^REMOTE_URL: | cut -d:  -f 3  | sed s#\ *##)
 ifneq ($(TEMP),)
-REMOTE_URL :=${TEMP}
+REMOTE_URL :=${PROTO}:${TEMP}
 endif
 
 # REVEAL_DIR
@@ -86,8 +87,8 @@ info:
 remote-reveal: reveal.js
 	@#@ssh ${REVEAL_HOST} 'test -d ${REVEAL_DIR} && rm -rf ${REVEAL_DIR}'
 	@#scp -rp reveal.js ${REVEAL}
-	@echo rsync -rlutopgx reveal.js/ ${REVEAL}/
-	@rsync -rlutopgx reveal.js/ ${REVEAL}/
+	@echo rsync -rlutopgx reveal.js/ ${REVEAL_USER}@${REVEAL}/
+	@rsync -rlutopgx reveal.js/ ${REVEAL_USER}@${REVEAL}/
 
 default: ${PROJECT}.html
 	@echo ""
@@ -105,7 +106,7 @@ reveal.js:
 publish: reveal.js default
 	@echo  "\nPublishing (via ${REMOTE_USER}@${REMOTE}) to $(REMOTE_URL)\n"
 	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
-	@scp ${PROJECT}.html ${REMOTE}/index.html > /dev/null 
+	@scp ${PROJECT}.html ${REMOTE_USER}@${REMOTE}/index.html > /dev/null 
 	@rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
 	@echo "Done"
 
