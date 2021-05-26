@@ -121,9 +121,25 @@ publish-all: publish
 
 .PHONY: clean
 clean:
-	rm *.html
+	rm -f *.html *.pdf
+	rm -f screenshots/*
 
 .PHONY: distclean
 distclean: clean
 	rm -rf reveal.js
 
+.PHONY: pdf
+pdf: ${PROJECT}.html
+	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user astefanutti/decktape \
+		reveal \
+		-s 1920x1200 \
+		--screenshots \
+		--screenshots-size=1920x1200 \
+		--screenshots-format png \
+		--screenshots-directory screenshots \
+		--chrome-arg=--disable-web-security \
+		/home/user/${PROJECT}.html-preview.html \
+		${PROJECT}-delme.pdf
+	rm ${PROJECT}-delme.pdf
+	
+	convert `find screenshots -type f| sort -t_ -n -k2` ${PROJECT}.pdf
