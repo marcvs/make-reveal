@@ -96,11 +96,11 @@ default: ${PROJECT}.html
 reveal.js: 
 	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
 	#@curl -s marcus.hardt-it.de/reveal-theme-marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s marcus.hardt-it.de/reveal-themes/marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
-	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
-	@curl -s marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
-	@curl -s marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus.css > reveal.js/css/theme/marcus.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
@@ -130,6 +130,7 @@ distclean: clean
 
 .PHONY: pdf
 pdf: ${PROJECT}.html
+	test -d screenshots || mkdir screenshots
 	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user astefanutti/decktape \
 		reveal \
 		-s 1920x1200 \
