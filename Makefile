@@ -101,6 +101,7 @@ reveal.js:
 	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
 	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
 	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/mytoken.css > reveal.js/css/theme/mytoken.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
