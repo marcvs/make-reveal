@@ -112,10 +112,10 @@ publish: reveal.js default
 	@echo "Done"
 
 view-remote: publish
-	@firefox $(REMOTE_URL)
+	@xdg-open $(REMOTE_URL) >/dev/null 2>&1 &
 
 view: reveal.js default
-	@firefox file://$(BASEDIR)/$(PROJECT).html-preview.html
+	@xdg-open file://$(BASEDIR)/$(PROJECT).html-preview.html >/dev/null 2>&1 & 
 
 publish-all: publish
 	@ssh hardt-it.de "cd web/`basename ${REMOTE}`; test -e reveal.js || ln -s ../reveal.js ."
