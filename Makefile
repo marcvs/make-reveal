@@ -91,7 +91,7 @@ remote-reveal: reveal.js
 	@rsync -rlutopgx reveal.js/ ${REVEAL_USER}@${REVEAL}/
 
 default: ${PROJECT}.html
-	@echo ""
+	@echo -e ""
 
 reveal.js: 
 	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
@@ -105,11 +105,11 @@ reveal.js:
 	@test -d images || mkdir images
 
 publish: reveal.js default
-	@echo  "\nPublishing (via ${REMOTE_USER}@${REMOTE}) to $(REMOTE_URL)\n"
+	@echo  "Publishing to $(REMOTE_URL)"
 	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	@scp ${PROJECT}.html ${REMOTE_USER}@${REMOTE}/index.html > /dev/null 
 	@rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
-	@echo "Done"
+	@ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod -R og+r ${REMOTE_DIR}/`basename ${REMOTE}`"
 
 view-remote: publish
 	@xdg-open $(REMOTE_URL) >/dev/null 2>&1 &
