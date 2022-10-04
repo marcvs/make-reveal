@@ -106,6 +106,7 @@ reveal.js:
 
 publish: reveal.js default
 	@echo  "Publishing to $(REMOTE_URL)"
+	@echo ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
 	scp ${PROJECT}.html ${REMOTE_USER}@${REMOTE}/index.html > /dev/null 
 	rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
