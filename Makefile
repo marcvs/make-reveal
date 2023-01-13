@@ -1,6 +1,7 @@
 # .SUFFIXES: .html .md
 PROJECT:=$(shell basename `pwd`)
 BASEDIR:=$(shell echo `pwd`)
+REVEAL_THEMES := reveal.js/dist/theme
 
 ########## config.mk 
 # config.mk is expected to set:
@@ -15,6 +16,7 @@ BASEDIR:=$(shell echo `pwd`)
 # REVEAL_URL := "${REVEAL_URL_DIR}"
 -include config.mk
 -include ${HOME}/.config/make-reveal/config.mk
+
 
 
 ### Read more config from markdown file header:
@@ -78,8 +80,8 @@ info:
 %.html: %.md reveal.js
 	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
 	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
-	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@#pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
 	@#pandoc -t revealjs --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs --mathjax --self-contained --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs           --self-contained --standalone -f markdown -o $@ $<
@@ -94,14 +96,15 @@ default: ${PROJECT}.html
 	@echo ""
 
 reveal.js: 
-	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
-	#@curl -s marcus.hardt-it.de/reveal-theme-marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/mytoken.css > reveal.js/css/theme/mytoken.css
+	@git clone https://github.com/hakimel/reveal.js.git -b 4.4.0 > /dev/null 2>&1
+	#@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
+	@#curl -s marcus.hardt-it.de/reveal-theme-marcus.css > $(REVEAL_THEMES)/marcus.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus.css > $(REVEAL_THEMES)/marcus.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-large.css > $(REVEAL_THEMES)/marcus-large.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > $(REVEAL_THEMES)/marcus-black.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > $(REVEAL_THEMES)/marcus-common.css
+	@curl -s https://marcus.hardt-it.de/reveal-themes/mytoken.css > $(REVEAL_THEMES)/mytoken.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
