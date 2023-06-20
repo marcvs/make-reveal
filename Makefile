@@ -78,10 +78,14 @@ info:
 	@echo "PROJECT:     ${PROJECT}     "
 
 %.html: %.md reveal.js
-	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@pandoc -t revealjs --mathml --standalone -f markdown   -V highlightjs -V highlightjs-theme:monokai -V revealjs-url=reveal.js -o $@-preview.html $<
+	@pandoc -t revealjs --mathml --standalone -f markdown   -V highlightjs -V highlightjs-theme:monokai -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	# @pandoc -t revealjs --mathml --standalone -f markdown  -V highlightjs -V higlighjs-theme:monokai -L ~/projects/lua-filters/revealjs-codeblock/revealjs-codeblock.lua  -V revealjs-url=reveal.js -o $@-preview.html $<
+	# @pandoc -t revealjs --mathml --standalone -f markdown  -V highlightjs -V higlighjs-theme:monokai -L ~/projects/lua-filters/revealjs-codeblock/revealjs-codeblock.lua  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@#pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	@#pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
 	@#pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@#    pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
 	@#pandoc -t revealjs --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs --mathjax --self-contained --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs           --self-contained --standalone -f markdown -o $@ $<
@@ -96,15 +100,18 @@ default: ${PROJECT}.html
 	@echo ""
 
 reveal.js: 
-	@git clone https://github.com/hakimel/reveal.js.git -b 4.4.0 > /dev/null 2>&1
+	@git clone https://github.com/hakimel/reveal.js.git  > /dev/null 2>&1
+	# @git clone https://github.com/hakimel/reveal.js.git -b 4.4.0 > /dev/null 2>&1
 	#@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
 	@#curl -s marcus.hardt-it.de/reveal-theme-marcus.css > $(REVEAL_THEMES)/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus.css > $(REVEAL_THEMES)/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-large.css > $(REVEAL_THEMES)/marcus-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > $(REVEAL_THEMES)/marcus-black.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > $(REVEAL_THEMES)/marcus-common.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/mytoken.css > $(REVEAL_THEMES)/mytoken.css
+	# Fixme: move these to git
+	git clone https://github.com/marcvs/reveal-themes.git delme
+	cat delme/marcus.css > $(REVEAL_THEMES)/marcus.css
+	cat delme/marcus-large.css > $(REVEAL_THEMES)/marcus-large.css
+	cat delme/marcus-black.css > $(REVEAL_THEMES)/marcus-black.css
+	cat delme/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
+	cat delme/marcus-common.css > $(REVEAL_THEMES)/marcus-common.css
+	cat delme/mytoken.css > $(REVEAL_THEMES)/mytoken.css
 	@test -d images || mkdir images
 
 publish: reveal.js default
