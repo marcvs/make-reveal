@@ -112,6 +112,7 @@ reveal.js:
 	cat delme/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
 	cat delme/marcus-common.css > $(REVEAL_THEMES)/marcus-common.css
 	cat delme/mytoken.css > $(REVEAL_THEMES)/mytoken.css
+	rm -rf delme
 	@test -d images || mkdir images
 
 publish: reveal.js default
@@ -151,7 +152,7 @@ pdf: ${PROJECT}.html
 		--screenshots-directory screenshots \
 		--chrome-arg=--disable-web-security \
 		/home/user/${PROJECT}.html-preview.html \
-		${PROJECT}-delme.pdf
+		${PROJECT}-delme.pdf || true
 	rm ${PROJECT}-delme.pdf
 	
 	convert `find screenshots -type f| sort -t_ -n -k2` ${PROJECT}.pdf
