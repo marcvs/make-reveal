@@ -107,6 +107,7 @@ reveal.js:
 	# Fixme: move these to git
 	git clone https://github.com/marcvs/reveal-themes.git delme
 	cat delme/marcus.css > $(REVEAL_THEMES)/marcus.css
+	cat delme/marcus2.css > $(REVEAL_THEMES)/marcus2.css
 	cat delme/marcus-large.css > $(REVEAL_THEMES)/marcus-large.css
 	cat delme/marcus-black.css > $(REVEAL_THEMES)/marcus-black.css
 	cat delme/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
@@ -153,6 +154,5 @@ pdf: ${PROJECT}.html
 		--chrome-arg=--disable-web-security \
 		/home/user/${PROJECT}.html-preview.html \
 		${PROJECT}-delme.pdf || true
-	rm ${PROJECT}-delme.pdf
 	
 	convert `find screenshots -type f| sort -t_ -n -k2` ${PROJECT}.pdf
