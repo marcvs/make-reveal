@@ -91,7 +91,6 @@ Users supported via
 <!--highlight-current-blue	Turn text blue, then back to original on next step-->
 
 ## Images:
-#
 - Integrate SSH with novel AAIs 
     (<a href="https://aai.egi.eu">
         <img style="vertical-align:middle" height="30" data-src="https://aai.egi.eu/registry/img/logo.png">
@@ -111,44 +110,95 @@ Users supported via
 
 Works in Production tod
 
-## xxx xxxx xxxxx:
-- xxx xx xxx xxxxxxxx xxxx / xxxxx xxxxxx xx xxxxxx
-- xxx xx xxxxxxxxx xxxx xxxxx:
-    - xxxxxx xxxxxxxx
-    - xxxxxxx xxxxxxxx
-  => xxxx xx xxx xxxxxx xxxx xxx xxxxxx xxxx xxxx?
 
 
-## xxxxxx xxxxxxxxxx xxxx xxxxx:
-- xxxxxxxxxxx xxxx xxxxxxxxxx
-    - xxx xx xxxxxxxxx xxx xxx xxxxx/xxxxxxxxxx
-    - => xxxxxxxxxx xxxxxx!
-
-- xxxxxxxxxxx xxxx xxxxxxxxxx
-    - xxx xx xxxxxxxxx xxx xxx xxxxx/xxxxxxxxxx
-    - => xxxxxxxxxx xxxxxx!
+<!-- ########################################################################################### -->
 
 
+<!-- ## test { style="font-size: 45px; width: 25%; "} -->
+<!-- asdfasdf -->
 
-# xxxxxxxxxx
 
-## xxxxxxxxxxxx
-- xxx xxxxxxx xxxxx xx xxx xxxxxxxxxxx
-  - xxx xxx x xxxxxx x x8x xxxxxxx
-  - xxx xxxxxxxxxxx
-  - xxx xxx x xxxx "xxxx" xxx x8x xxxxxxxx(x)
-  - ...
-- xxxx xxx xxx xxxx xxxxx
-  - xxxxxxxxx x8x, xxx xxxx xxxxx xxxxxxxxx
-    xx xxxx xxxxxxxx xxxxx
-    - xxxxx
-    - xxxx
-- xxx xx2 (xxx xxxxxxxxxxxxxx) xxx xxxx xxxx xxxxxxxxx xxx xxxxxxxxx
-  => xxxxx xxx xx xxxxx xxxx xxxxxxxxx xx xxxxxx x xxxxxxx x8x xxxxxxx,
-  xxxxxxxxxx xx xx, xxxx, xxx xxxxxxxxx xx xxx xxxx.
+<!-- ########################################################################################### -->
 
-## xxxx xxxxxx
-- xxxxxxx xxx xxxxxxx, xxxxxxxx xx xxxxxxxxx, xxxxxxxx xxxxxxxxxx
-    - x xxxxxxxxx xxxxx xxxx, xxx xx xxxxxxxxx xx xxxxxxxx
-- xxxxxxxxx xx xxx xxxxxxxxxx (xxxxx, xxxxx) xxxxxxxxx
-    - xx xxxxx xxxxxxx xxxxxxxxx?
+
+## Documentation {data-background-color="#333333"}
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div style="position: fixed;
+            top:6%; width: 74%;
+            left: 37%;
+            margin-right:0;
+            margin-top:0;
+            text-align: left;
+            font-size: 25px;
+            ">
+
+<https://doc.nfdi-aai.de>
+</div>
+<div id="handbook"
+     style="position: fixed;
+            top:15%; left: -5%;
+            width: 152%;
+            height: 120%;
+            vertical-align: middle;
+    ">
+<iframe
+    id="frame"
+    src="https://nfdi-aai.de"> </iframe>
+</div>
+
+
+<!-- ########################################################################################### -->
+
+
+## AARC
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div style="position: fixed;
+            top: 14%; width: 90%;
+            left: 0%;
+            margin-right:0;
+            margin-top:0;
+            text-align: left;
+            ">
+Authentication and Authorisation<br/>for Reserach Communities
+</div>
+
+<div style="position: fixed;
+            top:40%; width: 70%;
+            left: 0%;
+            margin-right:0;
+            margin-top:0;
+            text-align: left;
+            ">
+- Three funding cycles
+<ul>
+<li> AARC: <blue>May 2015 - Apr 2017</blue>
+<li> AARC2: <blue>May 2017 - Apr 2019</blue>
+<li> AARC TREE: <blue>Mar 2024 - Feb 2026</blue>
+<ul class="fragment fade-in" data-fragment-index="1">
+- Technical Revision to Enhance Effectiveness
+</ul>
+
+<div
+            style="position: fixed;
+            top:0%; width: 72%;
+            left: 75%;
+            margin-right:0;
+            margin-top:0;
+            text-align: left;
+            font-size: 25px;
+            ">
+<img src="images/aarch-tree-partners.png"/>
+</div>
+
+
+<!-- ########################################################################################### -->
+
+
+## Architecture {data-background-image="images/architektur-glow.png"
+                 data-background-size="contain"
+                 style="font-size: 45px; text-align: left;"}
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
