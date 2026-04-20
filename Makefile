@@ -1,6 +1,7 @@
 # .SUFFIXES: .html .md
 PROJECT:=$(shell basename `pwd`)
 BASEDIR:=$(shell echo `pwd`)
+REVEAL_THEMES := reveal.js/dist/theme
 
 ########## config.mk 
 # config.mk is expected to set:
@@ -15,6 +16,7 @@ BASEDIR:=$(shell echo `pwd`)
 # REVEAL_URL := "${REVEAL_URL_DIR}"
 -include config.mk
 -include ${HOME}/.config/make-reveal/config.mk
+
 
 
 ### Read more config from markdown file header:
@@ -76,10 +78,14 @@ info:
 	@echo "PROJECT:     ${PROJECT}     "
 
 %.html: %.md reveal.js
-	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	@pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
-	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
-	#@pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@pandoc -t revealjs --mathml --standalone -f markdown   -V highlightjs -V highlightjs-theme:monokai -V revealjs-url=reveal.js -o $@-preview.html $<
+	@pandoc -t revealjs --mathml --standalone -f markdown   -V highlightjs -V highlightjs-theme:monokai -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	# @pandoc -t revealjs --mathml --standalone -f markdown  -V highlightjs -V higlighjs-theme:monokai -L ~/projects/lua-filters/revealjs-codeblock/revealjs-codeblock.lua  -V revealjs-url=reveal.js -o $@-preview.html $<
+	# @pandoc -t revealjs --mathml --standalone -f markdown  -V highlightjs -V higlighjs-theme:monokai -L ~/projects/lua-filters/revealjs-codeblock/revealjs-codeblock.lua  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@#pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	@#pandoc -t revealjs --mathml --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
+	@#pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=reveal.js -o $@-preview.html $<
+	@#    pandoc -t revealjs --webtex --standalone -f markdown  -V revealjs-url=$(REVEAL_URL) -o $@ $<
 	@#pandoc -t revealjs --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs --mathjax --self-contained --standalone -f markdown -o $@ $<
 	@#pandoc -t revealjs           --self-contained --standalone -f markdown -o $@ $<
@@ -94,14 +100,20 @@ default: ${PROJECT}.html
 	@echo ""
 
 reveal.js: 
-	@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
-	#@curl -s marcus.hardt-it.de/reveal-theme-marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus.css > reveal.js/css/theme/marcus.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-large.css > reveal.js/css/theme/marcus-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black.css > reveal.js/css/theme/marcus-black.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-black-large.css > reveal.js/css/theme/marcus-black-large.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/marcus-common.css > reveal.js/css/theme/marcus-common.css
-	@curl -s https://marcus.hardt-it.de/reveal-themes/mytoken.css > reveal.js/css/theme/mytoken.css
+	@git clone https://github.com/hakimel/reveal.js.git  > /dev/null 2>&1
+	# @git clone https://github.com/hakimel/reveal.js.git -b 4.4.0 > /dev/null 2>&1
+	#@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
+	@#curl -s marcus.hardt-it.de/reveal-theme-marcus.css > $(REVEAL_THEMES)/marcus.css
+	# Fixme: move these to git
+	git clone https://github.com/marcvs/reveal-themes.git delme
+	cat delme/marcus.css > $(REVEAL_THEMES)/marcus.css
+	cat delme/marcus2.css > $(REVEAL_THEMES)/marcus2.css
+	cat delme/marcus-large.css > $(REVEAL_THEMES)/marcus-large.css
+	cat delme/marcus-black.css > $(REVEAL_THEMES)/marcus-black.css
+	cat delme/marcus-black-large.css > $(REVEAL_THEMES)/marcus-black-large.css
+	cat delme/marcus-common.css > $(REVEAL_THEMES)/marcus-common.css
+	cat delme/mytoken.css > $(REVEAL_THEMES)/mytoken.css
+	rm -rf delme
 	@test -d images || mkdir images
 
 publish: reveal.js default
@@ -141,7 +153,6 @@ pdf: ${PROJECT}.html
 		--screenshots-directory screenshots \
 		--chrome-arg=--disable-web-security \
 		/home/user/${PROJECT}.html-preview.html \
-		${PROJECT}-delme.pdf
-	rm ${PROJECT}-delme.pdf
+		${PROJECT}-delme.pdf || true
 	
 	convert `find screenshots -type f| sort -t_ -n -k2` ${PROJECT}.pdf
