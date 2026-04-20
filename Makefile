@@ -2,6 +2,7 @@
 PROJECT:=$(shell basename `pwd`)
 BASEDIR:=$(shell echo `pwd`)
 REVEAL_THEMES := reveal.js/dist/theme
+REVEAL_TAG_NAME := "5.2.1"
 
 ########## config.mk 
 # config.mk is expected to set:
@@ -100,7 +101,8 @@ default: ${PROJECT}.html
 	@echo ""
 
 reveal.js: 
-	@git clone https://github.com/hakimel/reveal.js.git  > /dev/null 2>&1
+	@git clone https://github.com/hakimel/reveal.js.git --branch ${REVEAL_TAG_NAME} > /dev/null 2>&1
+	# @git clone https://github.com/hakimel/reveal.js.git --branch ${REVEAL_TAG_NAME} > /dev/null 2>&1
 	# @git clone https://github.com/hakimel/reveal.js.git -b 4.4.0 > /dev/null 2>&1
 	#@git clone https://github.com/hakimel/reveal.js.git -b 3.9.2 > /dev/null 2>&1
 	@#curl -s marcus.hardt-it.de/reveal-theme-marcus.css > $(REVEAL_THEMES)/marcus.css
