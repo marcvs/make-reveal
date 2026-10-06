@@ -117,13 +117,21 @@ reveal.js:
 	cat delme/mytoken.css > $(REVEAL_THEMES)/mytoken.css
 	rm -rf delme
 	@test -d images || mkdir images
+	# mkdir -p reveal.js/lib/font/
+	# cp -af ./reveal.js/dist/theme/fonts/source-sans-pro/ reveal.js/lib/font/
 
-publish: reveal.js default
+publish: info reveal.js default
 	@echo  "Publishing to $(REMOTE_URL)"
-	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e `basename ${REMOTE}` || mkdir `basename ${REMOTE}`"
-	@scp ${PROJECT}.html ${REMOTE_USER}@${REMOTE}/index.html > /dev/null 
+	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; test -e ${PROJECT} || mkdir ${PROJECT}"
+	@scp ${PROJECT}.html ${REMOTE_USER}@${REMOTE}/index.html
+	@echo "mkdir pdf"
+	@ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR}/; echo "ls -l ${PROJECT}: "; ls -l ${PROJECT}; echo "--"; echo ${PWD}; echo "--"; test -e ${PROJECT}/pdf || mkdir ${PROJECT}/pdf" 
+	@echo "scp pdf"
+	@scp ${PROJECT}.pdf ${REMOTE_USER}@${REMOTE}/pdf/
+	@echo "rsync images"
 	@rsync -rlutopgx images ${REMOTE_USER}@${REMOTE}/
-	@ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod -R og+r ${REMOTE_DIR}/`basename ${REMOTE}`"
+	@echo "chmod"
+	@ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod -R og+r ${REMOTE_DIR}/${PROJECT}"
 
 view-remote: publish
 	@xdg-open $(REMOTE_URL) >/dev/null 2>&1 &
@@ -132,7 +140,7 @@ view: reveal.js default
 	@xdg-open file://$(BASEDIR)/$(PROJECT).html-preview.html >/dev/null 2>&1 & 
 
 publish-all: publish
-	@ssh hardt-it.de "cd web/`basename ${REMOTE}`; test -e reveal.js || ln -s ../reveal.js ."
+	@ssh hardt-it.de "cd web/$(basename ${REMOTE}); test -e reveal.js || ln -s ../reveal.js ."
 
 .PHONY: clean
 clean:
@@ -145,8 +153,29 @@ distclean: clean
 
 .PHONY: pdf
 pdf: ${PROJECT}.html
+	decktape \
+		reveal \
+		${PROJECT}.html-preview.html \
+		${PROJECT}.pdf || true
+
+.PHONY: pdfindocker
+pdfindocker: ${PROJECT}.html
+	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user marcvs/decktape \
+		reveal \
+		/home/user/${PROJECT}.html-preview.html \
+		${PROJECT}.pdf || true
+
+	
+pdfdocker: ${PROJECT}.html
+	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user marcvs/decktape \
+		reveal \
+		/home/user/${PROJECT}.html-preview.html \
+		${PROJECT}.pdf || true
+	
+
+pdfold: ${PROJECT}.html
 	test -d screenshots || mkdir screenshots
-	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user astefanutti/decktape \
+	docker run -it --rm -t -v `pwd`:/slides -v `pwd`:/home/user marcvs/decktape \
 		reveal \
 		-s 1920x1200 \
 		--screenshots \
